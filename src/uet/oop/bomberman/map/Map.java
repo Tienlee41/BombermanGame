@@ -18,6 +18,8 @@ public class Map {
     protected Entity[][] bombList;
     protected List<Entity> bombArray;
 
+    public static int dx_gc = 0, dy_gc = 0;
+    
     public int getWidth_pixel() {
         return widthTitle * Sprite.SCALED_SIZE;
     }
@@ -54,6 +56,5 @@ public class Map {
         return null;
     }
 
-    public static int dx_gc = 0, dy_gc = 0;
 
 }

@@ -3,7 +3,6 @@ package uet.oop.bomberman.map;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Movable_Objects.Movable_Object;
-import uet.oop.bomberman.entities.Movable_Objects.Movable_Object;
 import uet.oop.bomberman.entities.Movable_Objects.enemies.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 

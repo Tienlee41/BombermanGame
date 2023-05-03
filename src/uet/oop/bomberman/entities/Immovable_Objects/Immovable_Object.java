@@ -15,7 +15,6 @@ public class Immovable_Object extends Entity {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
 }

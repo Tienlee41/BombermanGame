@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.map.Collision;
 import uet.oop.bomberman.entities.Movable_Objects.Bomber;
 import uet.oop.bomberman.entities.Movable_Objects.Movable_Object;
-import uet.oop.bomberman.entities.Movable_Objects.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends Movable_Object {
@@ -35,6 +34,64 @@ public abstract class Enemy extends Movable_Object {
         objectStatus = MovingObjectStatus.ALIVE;
     }
 
+    /**
+     * Random moving for all enemies satisfying condition: not colliding with still object.
+     */
+    public void randomMovingWhenCollidingWithWall() {
+        indexOfSprite++;
+        if (!changeDirection) {
+            int rand = (int) (Math.random() * 10);
+            switch (rand % 4) {
+                case 0:
+                    dir = "LEFT";
+                    break;
+                case 1:
+                    dir = "RIGHT";
+                    break;
+                case 2:
+                    dir = "UP";
+                    break;
+                case 3:
+                    dir = "DOWN";
+                    break;
+                default:
+                    break;
+            }
+        }
+            if (dir.equals("LEFT")) {
+                x -= SPEED;
+                setImg(Sprite.movingSprite(
+                        leftSprites[0],
+                        leftSprites[1],
+                        leftSprites[2], indexOfSprite, 20));
+            }
+            if (dir.equals("RIGHT")) {
+                x += SPEED;
+                setImg(Sprite.movingSprite(
+                        rightSprites[0],
+                        rightSprites[1],
+                        rightSprites[2], indexOfSprite, 20));
+            }
+            if (dir.equals("UP")) {
+                y -= SPEED;
+                setImg(Sprite.movingSprite(
+                        rightSprites[0],
+                        rightSprites[1],
+                        rightSprites[2], indexOfSprite, 20));
+            }
+            if (dir.equals("DOWN")) {
+                y += SPEED;
+                setImg(Sprite.movingSprite(
+                        leftSprites[0],
+                        leftSprites[1],
+                        leftSprites[2], indexOfSprite, 20));
+            }
+            changeDirection = true;
+    }
+
+    /**
+     * Update path to go for enemy, implemented by completing a specific path.
+     */
     public abstract void move();
 
     @Override
@@ -46,6 +103,16 @@ public abstract class Enemy extends Movable_Object {
             if (indexOfSprite == 20) objectStatus = MovingObjectStatus.DEAD;
             else setImg(deadSprites[indexOfSprite % deadSprites.length]);
             indexOfSprite++;
+        }
+    }
+
+    /**
+     * Only render when enemy status is DEAD.
+     */
+    @Override
+    public void render(GraphicsContext gc) {
+        if (objectStatus == MovingObjectStatus.DEAD) {
+            super.render(gc);   
         }
     }
 
@@ -63,6 +130,17 @@ public abstract class Enemy extends Movable_Object {
                 && xPixel + Sprite.SCALED_SIZE / 10 <= x + Enemy.WIDTH;
     }
 
+    /**
+     * Get points from enemy type.
+     *
+     * @return Reward point for types of dead enemies.
+     */
+    public int getRewardPoint() {
+        if (this instanceof EasyEnemy) return EasyEnemy.rewardPoint;
+        else if (this instanceof NormalEnemy) return NormalEnemy.rewardPoint;
+        else if (this instanceof HardEnemy) return HardEnemy.rewardPoint;
+        return 0;
+    }
 
     /**
      * Random new speed for enemy.

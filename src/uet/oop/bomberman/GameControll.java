@@ -63,12 +63,8 @@ public class GameControll {
     private PlayingController playingController;
 
     private AtomicInteger gamePoint = new AtomicInteger();
-    /**
-     * AudioController can be used anywhere to play any audio if needed.
-     * See how to play audio at {@link AudioController}.
-     */
-    private Level currentLevel;
 
+    private Level currentLevel;
     /**
      * Constructor with available stage.
      */
@@ -101,16 +97,123 @@ public class GameControll {
         @Override
         public void handle(long now) {
             render();
-            update();
+            try {
+                update();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
-
     };
     Scene playingScene;
     Scene lobbyScene;
 
-    protected void update() {
+    /**
+     * Run game engine.
+     */
+    public void run() {
+        stage.getIcons().add(new Image("/stageIcon.png"));
+        stage.setTitle("BOMBERMAN");
+        stage.setResizable(false);
+        FXMLLoader fxmlLoader1 = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/UI_fxml/LobbyScene.fxml")));
+        FXMLLoader fxmlLoader2 = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/UI_fxml/PlayingScene.fxml")));
+
+        try {
+            lobbyScene = new Scene(fxmlLoader1.load());
+            playingScene = new Scene(fxmlLoader2.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        lobbyController = (fxmlLoader1).getController();
+        playingController = (fxmlLoader2).getController();
+
+        lobbyController.setPlayingScene(playingScene);
+        playingController.setLobbyScene(lobbyScene);
+
+        lobbyController.setGameController(this);
+        playingController.setGameController(this);
+
+        gameStatus = GameStatus.GAME_LOBBY;
+        stage.setScene(lobbyScene);
+        stage.show();
+
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+            //System.exit(0);
+        }
+
+        timer.start();
+
+
     }
 
-    protected void render() {
+    public ResultSet getRankingSet() {
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public void editRankingSet(String name, int point) throws SQLException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String sql = " insert into bomberman_database (name, point, date)"
+                + " values (?, ?, ?)";
+        PreparedStatement preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setString(1, name);
+        preparedStmt.setInt(2, point);
+        preparedStmt.setString(3, formatter.format(date));
+        preparedStmt.execute();
+    }
+
+    /**
+     * Update all specs of game, set scenes.
+     */
+    private void update() throws SQLException {
+        lobbyController.updateStatus();
+        playingController.updateStatus();
+
+    }
+
+    private void render() {
+        if (gameStatus == GAME_PLAYING) {
+            currentLevel.render();
+        }
+    }
+
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    /**
+     * Render into playing canvas by gc.
+     */
+
+    public void reset() {
+        gamePoint.set(0);
+        currentLevelCode = 0;
+        currentLevel.loadLevel(currentLevelCode);
+        GameControll.gameStatus = GAME_LOBBY;
+    }
+
+    /**
+     * Get username.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Get game points.
+     */
+    public int getGamePoint() {
+        return gamePoint.get();
     }
 }
