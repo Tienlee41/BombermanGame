@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.map.Map;
 
 public abstract class Entity {
     protected int x; //X coordinate from top left corner in Canvas
@@ -22,7 +23,9 @@ public abstract class Entity {
      * Render entities.
      * @param gc GraphicsContext
      */
-    
+    public void render(GraphicsContext gc) {
+        gc.drawImage(img, x - Map.dx_gc, y - Map.dy_gc);
+    }
 
     public abstract void update();
 

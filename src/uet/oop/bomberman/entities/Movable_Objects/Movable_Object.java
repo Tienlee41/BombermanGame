@@ -13,7 +13,7 @@ public abstract class Movable_Object extends Entity {
     Map map;
     Collision collision;
 
-    public abstract List<Class> getCannotPassEntityList();
+    public abstract List<Class> getCannotPassEnityList();
 
     public enum MovingObjectStatus {
         ALIVE,

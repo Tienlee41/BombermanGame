@@ -57,4 +57,16 @@ public class Bomber extends Movable_Object {
     private KeyCode latestDirectKey = KeyCode.RIGHT;
     private final List<Entity> movingEntitiesList;
 
+    @Override
+    public List<Class> getCannotPassEnityList() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCannotPassEnityList'");
+    }
+
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
 }
