@@ -89,7 +89,7 @@ public class LobbyController extends SceneController implements Initializable {
     @FXML
     public void clickQuitButton() {
         Alert alert = new Alert(Alert.AlertType.WARNING,
-                "EXIT GAME",
+                "You really want to exit :(",
                 ButtonType.YES, ButtonType.CANCEL);
         alert.setHeaderText(null);
         alert.setTitle("EXIT Notification");

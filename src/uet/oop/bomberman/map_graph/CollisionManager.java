@@ -36,7 +36,7 @@ public class CollisionManager {
      * x and y are pixel position of object,
      * dir and speed is updated continually.
      */
-    public <T extends MovingObject> boolean collide(T movingObject, int curX, int curY, String dir, int OBJECT_SPEED) {
+    public <T extends MovingObject> boolean collide(T movable_object, int curX, int curY, String dir, int OBJECT_SPEED) {
         switch (dir) {
             case "UP":
                 curY -= OBJECT_SPEED;
@@ -59,7 +59,7 @@ public class CollisionManager {
         if (curX <= 0 || curX + Sprite.SCALED_SIZE >= map.getWidth_Pixel() || curY <= 0 || curY + Sprite.SCALED_SIZE >= map.getHeight_Pixel()) {
             return true;
         }
-        List<Class> cannotPassEntityList = movingObject.getCannotPassEntityList();
+        List<Class> cannotPassEntityList = movable_object.getCannotPassEntityList();
         for (int i = 0; i < cannotPassEntityList.size(); i++) {
             if (topLeftCorner != null)
                 if (topLeftCorner.getClass().equals(cannotPassEntityList.get(i))) {
@@ -86,8 +86,8 @@ public class CollisionManager {
         }
 
         if (checkIfColliding) {
-            if (movingObject instanceof Enemy)
-                ((Enemy) movingObject).randomSpeed(1, 3);
+            if (movable_object instanceof Enemy)
+                ((Enemy) movable_object).randomSpeed(1, 3);
         }
         return checkIfColliding;
     }

@@ -19,9 +19,9 @@ public abstract class SceneController {
     /**
      * Set game controller.
      */
-    public void setGameController(GameController gameControll) {
-        this.gameController = gameControll;
-        stage = gameControll.getStage();
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+        stage = gameController.getStage();
     }
 
     /**

@@ -9,7 +9,7 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) { 
+    public void start(Stage stage) {
         GameController gameController = GameController.getGameController(stage);
         gameController.run();
     }

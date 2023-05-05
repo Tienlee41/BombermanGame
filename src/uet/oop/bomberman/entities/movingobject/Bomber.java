@@ -23,7 +23,7 @@ public class Bomber extends MovingObject {
     public static final List<Class> cannotPassEntityList = Arrays.asList(new Class[]{Wall.class, Brick.class});
     public static final int MAX_LIVES = 3;
     int numOfLives = 3;
-    public static int speed = 3;
+    public static int speed = 2;
     private int maxBomb = 3;
     public int bombRadius = 1;
 
