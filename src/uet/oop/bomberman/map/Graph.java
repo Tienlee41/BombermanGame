@@ -1,12 +1,11 @@
 package uet.oop.bomberman.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Graph {
+import java.util.*;
 
+public class Graph {
     private int numOfVertices;
     private final List<Vertices> verticesList;
     private final List<Edge>[] adjList;
@@ -19,12 +18,23 @@ public class Graph {
             adjList[i] = new ArrayList<>();
         }
     }
-    
-    private void addEdge(Edge edge) {
+
+    public void addEdge(Edge edge) {
         adjList[edge.getDes()].add(edge);
-        adjList[edge.getScr()].add(edge);
+        adjList[edge.getSrc()].add(edge);
     }
 
+    public List<Integer> getAdj(int v) { //Return all indexes of all adj vertices in verticesList.
+        List<Integer> adjVertex = new ArrayList<>();
+        for (int i = 0; i < adjList[v].size(); i++) {
+            adjVertex.add(adjList[v].get(i).getOther(v));
+        }
+        return adjVertex;
+    }
+
+    /**
+     * Building full graph with available vertices list and game map information.
+     */
     public void completeBuildingGraph(Map map) {
         for (int i = 0; i < verticesList.size() - 1; i++) {
             int firstX = verticesList.get(i).getxTilePos();
@@ -82,10 +92,77 @@ public class Graph {
     }
 
     public boolean isConnected() {
-        return false;
+        boolean[] visited = new boolean[verticesList.size()];
+        DepthFirstSearch(0, visited); //Pos 0 - Bomberman
+        return visited[1]; // Pos 1 - Oneal
     }
 
-    public List<Vertices> findWay(int i, int j) {
-        return null;
+    private void DepthFirstSearch(int i, boolean[] visited) {
+        visited[i] = true;
+        for (int j = 0; j < getAdj(i).size(); j++) {
+            int n = getAdj(i).get(j);
+            if (!visited[n]) DepthFirstSearch(n, visited);
+        }
+    }
+
+    @Override
+    public String toString() {
+        String graphInfo = "New Graph: \n";
+        for (int i = 0; i < verticesList.size(); i++) {
+            graphInfo = graphInfo + "Vertex " + i + ": " + verticesList.get(i) + ": ";
+            for (int j = 0; j < adjList[i].size(); j++) {
+                graphInfo = graphInfo + verticesList.get(adjList[i].get(j).getOther(i)) + ", ";
+            }
+            graphInfo += '\n';
+        }
+        return graphInfo;
+    }
+
+    public List<Vertices> findWay(int s, int t) {
+        int[] previous = new int[numOfVertices];
+        List<Integer> distanceToSrc = new ArrayList<>();
+
+        for (int i = 0; i < numOfVertices; i++) {
+            distanceToSrc.add(10000);
+        }
+
+        distanceToSrc.set(s, 0); //Set distance from oneal to itself 0.
+
+        Queue<Edge> Q = new PriorityQueue<>();
+
+        Q.add(new Edge(s, s, 0));
+
+        // Using Dijkstra algorithm to find shortest way.
+        while (!Q.isEmpty()) {
+            Edge min = Q.poll();
+            int u = min.getDes(); //Get vertice of which distance to src is min.
+            int distance = min.getWeight();
+
+            if (distance > distanceToSrc.get(u)) continue;
+
+            for (int i = 0; i < adjList[u].size(); i++) {
+                int v = adjList[u].get(i).getOther(u);
+                int weight = adjList[u].get(i).getWeight();
+                if (distanceToSrc.get(v) > distanceToSrc.get(u) + weight) {
+                    distanceToSrc.set(v, distanceToSrc.get(u) + weight);
+                    Q.add(new Edge(s, v, distanceToSrc.get(v)));
+                    previous[v] = u;
+                }
+            }
+        }
+
+        List<Integer> path = new ArrayList<>();
+        while (true) {
+            path.add(t);
+            if (t == s) break;
+            t = previous[t];
+        }
+        Collections.reverse(path);
+        List<Vertices> verticesPathList = new ArrayList<>();
+        for (int x : path) {
+            verticesPathList.add(verticesList.get(x));
+        }
+        if (verticesPathList.size() == 1) verticesPathList.add(verticesPathList.get(0));
+        return verticesPathList;
     }
 }

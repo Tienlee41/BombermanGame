@@ -220,9 +220,9 @@ public class Map {
         for (int i = 1; i < mapInfo.length - 1; i++) {
             for (int j = 1; j < mapInfo[i].length - 1; j++) {
                 if (getEntityAt(j * Sprite.SCALED_SIZE, i * Sprite.SCALED_SIZE) == null) {
-                    Vertices vertice = new Vertices(j, i);
-                    if (vertice.isAVerticeInGraph(this) && !vertice.equals(bomberVertice) && !vertice.equals(onealVertice)) {
-                        verticesList.add(vertice);
+                    Vertices vertices = new Vertices(j, i);
+                    if (vertices.isAVerticeInGraph(this) && !vertices.equals(bomberVertice) && !vertices.equals(onealVertice)) {
+                        verticesList.add(vertices);
                     }
                 }
             }
@@ -249,6 +249,17 @@ public class Map {
         }
     }
 
+    /**
+     * Update bombArrayList: If any bomb disappear, remove it from bomb linked list.
+     */
+    public void updateBombArrayList() {
+        bombArrayList.forEach(Entity::update);
+        if (!bombArrayList.isEmpty())
+            if (((Bomb) bombArrayList.get(0)).getBombStatus() == Bomb.BombStatus.DISAPPEAR) {
+                bombList[bombArrayList.get(0).getY() / Sprite.SCALED_SIZE][bombArrayList.get(0).getX() / Sprite.SCALED_SIZE] = null;
+                bombArrayList.remove(0);
+            }
+    }
 
     /**
      * Update entities list (moving entities).
@@ -307,16 +318,5 @@ public class Map {
 
     public List<Entity> getMovingEntitiesList() {
         return movingEntitiesList;
-    }
-
-    public int getWidth_pixel() {
-        return 0;
-    }
-
-    public int getHeight_pixel() {
-        return 0;
-    }
-
-    public void updateBombArrayList() {
     }
 }

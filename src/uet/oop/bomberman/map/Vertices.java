@@ -24,6 +24,31 @@ public class Vertices {
         return yTilePos;
     }
 
+    public boolean isAVerticeInGraph(Map map) {
+
+        if (!(map.getEntityAt(xTilePos, yTilePos + 1) instanceof Bomb
+                && map.getEntityAt(xTilePos, yTilePos - 1) instanceof Bomb
+                && map.getEntityAt(xTilePos, yTilePos + 1) instanceof Brick
+                && map.getEntityAt(xTilePos, yTilePos - 1) instanceof Brick
+                && map.getEntityAt(xTilePos, yTilePos + 1) instanceof Wall
+                && map.getEntityAt(xTilePos, yTilePos - 1) instanceof Wall
+                && map.getEntityAt(xTilePos + 1, yTilePos) == null
+                && map.getEntityAt(xTilePos - 1, yTilePos) == null
+        )
+                && !(map.getEntityAt(xTilePos, yTilePos + 1) == null
+                && map.getEntityAt(xTilePos, yTilePos - 1) == null
+                && map.getEntityAt(xTilePos + 1, yTilePos) instanceof Bomb
+                && map.getEntityAt(xTilePos - 1, yTilePos) instanceof Bomb
+                && map.getEntityAt(xTilePos + 1, yTilePos) instanceof Brick
+                && map.getEntityAt(xTilePos - 1, yTilePos) instanceof Brick
+                && map.getEntityAt(xTilePos + 1, yTilePos) instanceof Wall
+                && map.getEntityAt(xTilePos - 1, yTilePos) instanceof Wall
+
+        )) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
@@ -36,10 +61,6 @@ public class Vertices {
             Vertices vertice = (Vertices) obj;
             if (vertice.getxTilePos() == xTilePos && vertice.getyTilePos() == yTilePos) return true;
         }
-        return false;
-    }
-
-    public boolean isAVerticeInGraph(Map map) {
         return false;
     }
 }

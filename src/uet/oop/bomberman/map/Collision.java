@@ -56,7 +56,7 @@ public class Collision {
         downLeftCorner = map.getEntityAt(curX, curY + CENTER_OBJECT_HEIGHT);
         downRightCorner = map.getEntityAt(curX + CENTER_OBJECT_WIDTH, curY + CENTER_OBJECT_HEIGHT);
         boolean checkIfColliding = false;
-        if (curX <= 0 || curX + Sprite.SCALED_SIZE >= map.getWidth_pixel() || curY <= 0 || curY + Sprite.SCALED_SIZE >= map.getHeight_pixel()) {
+        if (curX <= 0 || curX + Sprite.SCALED_SIZE >= map.getWidth_Pixel() || curY <= 0 || curY + Sprite.SCALED_SIZE >= map.getHeight_Pixel()) {
             return true;
         }
         List<Class> cannotPassEntityList = movingObject.getCannotPassEnityList();
@@ -112,7 +112,7 @@ public class Collision {
                 curX += OBJECT_SPEED;
                 break;
         }
-        return curX == Sprite.SCALED_SIZE || curX == map.getWidth_pixel() - (Sprite.DEFAULT_SIZE * 4)
-                || curY == Sprite.SCALED_SIZE || curY == map.getHeight_pixel() - (Sprite.DEFAULT_SIZE * 4);
+        return curX == Sprite.SCALED_SIZE || curX == map.getWidth_Pixel() - (Sprite.DEFAULT_SIZE * 4)
+                || curY == Sprite.SCALED_SIZE || curY == map.getHeight_Pixel() - (Sprite.DEFAULT_SIZE * 4);
     }
 }
