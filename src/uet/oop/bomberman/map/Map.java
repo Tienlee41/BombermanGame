@@ -15,7 +15,7 @@ import uet.oop.bomberman.entities.Immovable_Objects.item.BombItem;
 import uet.oop.bomberman.entities.Immovable_Objects.item.FlameItem;
 import uet.oop.bomberman.entities.Immovable_Objects.item.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.Scene.SceneController;
+import uet.oop.bomberman.scenemaster.SceneController;
 
 import java.io.*;
 import java.util.*;
@@ -100,7 +100,7 @@ public class Map {
                         itemAndPortalList[i][j] = new Portal(j, i, this);
                         break;
                     case '1':
-                        Enemy balloom = new Ballom(j, i, new Collision(this, Ballom.WIDTH, Ballom.HEIGHT));
+                        Enemy balloom = new Balloom(j, i, new Collision(this, Balloom.WIDTH, Balloom.HEIGHT));
                         movingEntitiesList.add(balloom);
                         break;
                     case '2':

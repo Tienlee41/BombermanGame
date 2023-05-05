@@ -1,10 +1,10 @@
-package uet.oop.bomberman;
+    package uet.oop.bomberman;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.map.Map;
-import uet.oop.bomberman.Scene.SceneController;
+import uet.oop.bomberman.map_graph.Map;
+import uet.oop.bomberman.scenemaster.SceneController;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,16 +19,31 @@ public class Level {
     private GraphicsContext gc = playingCanvas.getGraphicsContext2D();
 
     public Level(AtomicInteger gamePoint) {
+        this.gamePoint = gamePoint;
+        loadLevel(levelCode.get());
     }
-    
+    public void loadLevel(int levelCode) {
+        this.levelCode.set(levelCode);
+        gameMap = new Map(this);
+    }
     public AtomicInteger getLevelCode() {
         return levelCode;
     }
     public void update() {
+        gameMap.getMovingEntitiesList().forEach(Entity::update);
+        gameMap.setUpMapCamera();
+        gameMap.updateMovingEntitiesList();
     }
     public void render() {
+        gc.clearRect(0, 0, playingCanvas.getWidth(), playingCanvas.getHeight());
+        gameMap.render(gc);
     }
     public void reset() {
+        gamePoint.addAndGet(-levelPoint);
+        levelPoint = 0;
+        int numOfLives = gameMap.getBomberNumOfLives();
+        loadLevel(levelCode.get());
+        gameMap.setBomberNumOfLives(numOfLives);
     }
     public void plusPoint(int rewardPoint) {
         levelPoint += rewardPoint;
@@ -41,8 +56,5 @@ public class Level {
 
     public Map getGameMap() {
         return gameMap;
-    }
-
-    public void loadLevel(int currentLevelCode) {
     }
 }

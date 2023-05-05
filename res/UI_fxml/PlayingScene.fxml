@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.Scene.PlayingController">
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.scenemaster.PlayingController">
 
    <children>
       <VBox fx:id="playingBox" prefHeight="200.0" prefWidth="100.0">
@@ -41,7 +41,7 @@
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../statusBar/Bomb.png" />
+                              <Image url="@../statusBar/bomb.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="maxBombs" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="3" wrappingWidth="24.0550537109375">
@@ -110,7 +110,7 @@
          <children>
             <ImageView disable="true" fitHeight="384.0" fitWidth="505.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../statusBar/finish.gif" />
+                  <Image url="@../statusBar/winOne.gif" />
                </image>
             </ImageView>
          </children>
@@ -137,7 +137,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="490.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../statusBar/finish.gif" />
+                  <Image url="@../statusBar/winAll.gif" />
                </image>
             </ImageView>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="  CONGRATULATIONS" textAlignment="CENTER">
