@@ -80,4 +80,12 @@ public class Graph {
             }
         }
     }
+
+    public boolean isConnected() {
+        return false;
+    }
+
+    public List<Vertices> findWay(int i, int j) {
+        return null;
+    }
 }

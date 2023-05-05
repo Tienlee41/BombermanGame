@@ -316,4 +316,7 @@ public class Map {
     public int getHeight_pixel() {
         return 0;
     }
+
+    public void updateBombArrayList() {
+    }
 }

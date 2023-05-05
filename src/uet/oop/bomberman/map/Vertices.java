@@ -38,4 +38,8 @@ public class Vertices {
         }
         return false;
     }
+
+    public boolean isAVerticeInGraph(Map map) {
+        return false;
+    }
 }

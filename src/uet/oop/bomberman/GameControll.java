@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import uet.oop.bomberman.AudioControll.AudioController;
 import uet.oop.bomberman.Scene.LobbyController;
 import uet.oop.bomberman.Scene.PlayingController;
 
@@ -63,8 +64,13 @@ public class GameControll {
     private PlayingController playingController;
 
     private AtomicInteger gamePoint = new AtomicInteger();
-
+    /**
+     * AudioController can be used anywhere to play any audio if needed.
+     * See how to play audio at {@link AudioController}.
+     */
+    public static AudioController audioController = new AudioController();
     private Level currentLevel;
+
     /**
      * Constructor with available stage.
      */
@@ -142,7 +148,6 @@ public class GameControll {
         } catch (
                 SQLException e) {
             e.printStackTrace();
-            //System.exit(0);
         }
 
         timer.start();
@@ -179,7 +184,7 @@ public class GameControll {
     private void update() throws SQLException {
         lobbyController.updateStatus();
         playingController.updateStatus();
-
+        audioController.run();
     }
 
     private void render() {

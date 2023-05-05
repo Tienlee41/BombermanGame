@@ -9,5 +9,9 @@ public class Bomb extends Immovable_Object {
     public Bomb(int x, int y, Map map) {
         super(x, y, Sprite.bomb.getFxImage(), map);
     }
+
+    public Object getBombStatus() {
+        return null;
+    }
     
 }

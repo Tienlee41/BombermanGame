@@ -95,6 +95,9 @@ public class PlayingController extends SceneController implements Initializable 
             //levelText.setText("LEVEL " + currentLevel.getLevelCode());
             pointText.setText(Integer.toString(curGamePoint));
 
+            // Set status of mute line for audio button.
+            muteLine.setVisible(GameControll.audioController.isMuted());
+
             //Click pause button
             pauseButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -207,7 +210,7 @@ public class PlayingController extends SceneController implements Initializable 
      * Update status for all game events include timers, status bar.
      */
     public void updateStatus() throws SQLException {
-        switch (GameControll .gameStatus) {
+        switch (GameControll.gameStatus) {
             case GAME_START:
                 if (nextLevelTimeline.getStatus() == Animation.Status.STOPPED) {
                     nextLevelBox.setVisible(true);

@@ -42,4 +42,7 @@ public class Level {
     public Map getGameMap() {
         return gameMap;
     }
+
+    public void loadLevel(int currentLevelCode) {
+    }
 }

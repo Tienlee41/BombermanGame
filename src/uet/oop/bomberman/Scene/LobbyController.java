@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.GameControll;
-
+import uet.oop.bomberman.Ranking;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +24,8 @@ public class LobbyController extends SceneController implements Initializable {
      * RankTable includes rank, username, point and time columns.
      * RankTable is updated whenever user click rank button or finish playing.
      */
-    
+    @FXML
+    private TableView<Ranking> rankTable;
     @FXML
     private TableColumn<Object, Object> rankColumn;
     @FXML
@@ -67,7 +68,7 @@ public class LobbyController extends SceneController implements Initializable {
      */
     @FXML
     public void clickPlayButton() {
-        
+        rankTable.setVisible(false);
 
         TextInputDialog getNameInputDialog = new TextInputDialog("username");
         getNameInputDialog.setTitle(stage.getTitle());
@@ -110,5 +111,56 @@ public class LobbyController extends SceneController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Audio has been turn " + (GameControll.audioController.isMuted() ? "off!" : "on!"));
         alert.showAndWait();
+    }
+
+    /**
+     * Click rank button.
+     */
+    public void clickRankButton() throws SQLException {
+        if (!rankTable.isVisible()) {
+            scaleValue = 0;
+            rankTable.setScaleX(scaleValue);
+            rankTable.setScaleY(scaleValue);
+            readRankingFile();
+        }
+        rankTable.setVisible(!rankTable.isVisible());
+    }
+
+    /**
+     * Rank file save information with format:
+     * line 1 is "username",
+     * line 2 is "point dd/mm/yyyy hh/mm/ss".
+     * Read into priority queue to get max queue and convert it to list,
+     * then push it into tableview.
+     */
+    public void readRankingFile() throws SQLException {
+        PriorityQueue<Ranking> rankingQueue = new PriorityQueue<>(Comparator.reverseOrder());
+        ResultSet resultSet = gameControll.getRankingSet();
+        while (resultSet.next()) {
+            rankingQueue.add(new Ranking(resultSet.getString(1), String.valueOf(resultSet.getInt(2)),resultSet.getString(3)));
+        }
+        List<Ranking> rankingList = new ArrayList<>();
+        int rankIndex = 0;
+        while (!rankingQueue.isEmpty()) {
+            rankingList.add(rankingQueue.poll());
+            rankingList.get(rankIndex).setRankIndex(String.valueOf(rankIndex + 1));
+            rankIndex++;
+        }
+        rankTable.setItems(FXCollections.observableArrayList(rankingList));
+    }
+
+    /**
+     * Update status
+     */
+    public void updateStatus() {
+        if (GameControll.gameStatus == GameControll.GameStatus.GAME_LOBBY) {
+            if (rankTable.isVisible()) {
+                if (rankTable.getScaleX() < 1) {
+                    scaleValue = (scaleValue <= 0.97) ? scaleValue + 0.03 : 1;
+                    rankTable.setScaleX(scaleValue);
+                    rankTable.setScaleY(scaleValue);
+                }
+            }
+        }
     }
 }
