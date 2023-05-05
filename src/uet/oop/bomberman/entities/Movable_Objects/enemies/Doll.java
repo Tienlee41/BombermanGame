@@ -5,7 +5,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Immovable_Objects.Wall;
-import uet.oop.bomberman.entities.Movable_Objects.Bomb.Bomb;
+import uet.oop.bomberman.entities.Immovable_Objects.Bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.map.Collision;
 
@@ -14,7 +14,7 @@ public class Doll extends Enemy implements NormalEnemy {
     public static final List<Class> CannotPassEntityList = Arrays.asList(new Class[] {Wall.class, Bomb.class});
 
     
-    public Doll(int xUnit, int yUnit, Image img, Collision collision) {
+    public Doll(int xUnit, int yUnit, Collision collision) {
         super(xUnit, yUnit, Sprite.doll_right1.getFxImage(), collision);
         //TODO Auto-generated constructor stub
     }

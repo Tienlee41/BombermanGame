@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Movable_Objects.Bomb.Bomb;
+import uet.oop.bomberman.entities.Immovable_Objects.Bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.map.Collision;
 
 public class Kondoria extends Enemy implements NormalEnemy {
 
-    public Kondoria(int xUnit, int yUnit, Image img, Collision collision) {
+    public Kondoria(int xUnit, int yUnit, Collision collision) {
         super(xUnit, yUnit, Sprite.kondoria_right1.getFxImage(), collision);
         //TODO Auto-generated constructor stub
     }

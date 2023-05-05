@@ -13,22 +13,22 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="800.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lobbyTexture/2.png" />
+            <Image url="@../start/background.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="306.0" fitWidth="263.0" layoutX="88.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lobbyTexture/3.png" />
+            <Image url="@../start/bomber.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="217.0" fitWidth="354.0" layoutX="49.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lobbyTexture/1.png" />
+            <Image url="@../start/bbm.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="376.0" fitWidth="307.0" layoutX="410.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lobbyTexture/4.png" />
+            <Image url="@../start/frame.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" layoutX="468.0" layoutY="51.0" prefHeight="269.0" prefWidth="205.0" spacing="10.0" AnchorPane.rightAnchor="126.66666666666663">
@@ -37,7 +37,7 @@
                <graphic>
                   <ImageView fitHeight="61.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../lobbyTexture/5.png" />
+                        <Image url="@../start/play.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -49,7 +49,7 @@
                <graphic>
                   <ImageView fitHeight="59.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../lobbyTexture/6.png" />
+                        <Image url="@../start/sound.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -58,7 +58,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../lobbyTexture/7.png" />
+                        <Image url="@../start/Quit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -67,7 +67,7 @@
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../lobbyTexture/8.png" />
+                        <Image url="@../start/cup.png" />
                      </image>
                   </ImageView>
                </graphic>

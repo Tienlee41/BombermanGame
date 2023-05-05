@@ -5,7 +5,7 @@ import java.util.List;
 
 import uet.oop.bomberman.entities.Immovable_Objects.Brick;
 import uet.oop.bomberman.entities.Immovable_Objects.Wall;
-import uet.oop.bomberman.entities.Movable_Objects.Bomb.Bomb;
+import uet.oop.bomberman.entities.Immovable_Objects.Bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.map.Collision;
 
