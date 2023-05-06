@@ -112,7 +112,7 @@ public class Bomber extends MovingObject {
      */
     private void updateBomberStatus() {
         /*
-          Died because of colliding with oneal and balloom.
+            Died because of colliding with oneal and balloom.
          */
         for (int i = 1; i < movingEntitiesList.size(); i++) {
             if (((Enemy) movingEntitiesList.get(i)).collideBomber(x, y)) {
